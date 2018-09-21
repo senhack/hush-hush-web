@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+  <title>{{ subtitle | default(title) }} @ Hush Hush</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" rel="stylesheet" media="screen">
+  <link href="/static/style/main.css" rel="stylesheet" media="screen">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<!-- <div class="container header" style="background:#ccc;">
+
+  {% for button in header_menu -%}
+  <a class="button{% if title == button.title %} button-active{% endif%}" href="{{ button.uri }}">{{ button.title }}</a>
+  {% endfor %}
+
+</div> -->
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      Hush Hush
+    </h1>
+    <p class="subtitle">
+      Welcome to the Hush Hush web application
+    </p>
+  </div>
+  <div class="container">
+    {% for button in header_menu -%}
+    <a class="button{% if title == button.title %} button-active{% endif%}" href="{{ button.uri }}">{{ button.title }}</a>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,34 @@
+<!-- START javascript -->
+<script>
+// Define some variables to create the canvas and the image object
+  var canvas = document.getElementById('myCanvas');
+  var context = canvas.getContext('2d');
+  var imageObj = new Image();
+
+  imageObj.src = '/static/img/floorplan-test.png';
+  context.drawImage(imageObj, 100, 0);
+
+
+  // Draw a circle
+  context.fillStyle = "#00A308"; // GREEN
+  context.beginPath();
+  context.arc(400, 500, 10, 0, Math.PI*2, true);
+  context.closePath();
+  context.fill();
+
+  // Draw another circle
+  context.fillStyle = "#FF1C0A"; // RED
+  context.beginPath();
+  context.arc(1100, 150, 10, 0, Math.PI*2, true);
+  context.closePath();
+  context.fill();
+
+  // And another one
+  context.beginPath();
+  context.arc(1100, 400, 10, 0, Math.PI*2, true);
+  context.closePath();
+  context.fill();
+
+</script>
+<!-- END javascript -->
+</div>
