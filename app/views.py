@@ -1,6 +1,8 @@
 from flask import render_template, request
 from app import app
-import json, requests
+from datetime import datetime, timedelta
+
+import json, requests, os
 
 # import functions
 
@@ -33,8 +35,24 @@ def home():
 
 @app.route('/floors')
 def music():
+    headers = { 'Content-type': 'application/json', 'x-api-key': os.environ['SHUSH_API_KEY'] }
+    current_time = datetime.now()
+    start_date = current_time - timedelta(minutes=1)
+    end_date = current_time
+
+    response = requests.get(("https://%s/test/StoreAudioData?device_id=device-0002&start_date=%s&end_date=%s" % (os.environ['SHUSH_API_ENDPOINT'], start_date.strftime("%Y%m%d%H%M%S"), end_date.strftime("%Y%m%d%H%M%S"))), headers=headers)
+    response_data = response.json()
+    record = response_data['Items'][-1]
+
+    color = '#BBBBBB'
+    max_amplitude = float(record['MaximumAmplitude'])
+    if max_amplitude > 0.5:
+        color = '#FFB33a'
+    else if max_amplitude > 0.9:
+        color = '#D10808'
+
     return render_template('floors.html',
-                            title='Floors')
+                            title='Floors', color=color)
 
 @app.route('/about')
 def about():
