@@ -48,7 +48,7 @@ def music():
     max_amplitude = float(record['MaximumAmplitude'])
     if max_amplitude > 0.5:
         color = '#FFB33a'
-    else if max_amplitude > 0.9:
+    elif max_amplitude > 0.9:
         color = '#D10808'
 
     return render_template('floors.html',
