@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hush Hush</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+var apiGateway = "https://bpatu0f8fh.execute-api.eu-central-1.amazonaws.com/test/";
+var apiKey = "xxx";
+
+var deviceId = "device-0002";
+var start = "20180921180900";
+var end = "20180921181000";
+
+var officeLocation = "SentiaNieuwegeinGroundFloor";
+
+
+function retrieveSoundAmplitude()
+{
+  var lamdaFunction = "audio-data";
+  var apiUrl = apiGateway + lamdaFunction + "?device_id=" + deviceId + "&start_date=" + start + "&end_date=" + end;
+
+  console.log(apiUrl);
+
+  $.ajax({
+    method: "GET",
+    url: apiUrl,
+    crossDomain: true,
+    dataType: 'json',
+    headers: {"x-api-key": apiKey},
+    success: function(response) {
+      console.log('data');
+      console.log(response[0].MaximumAmplitude);
+    },
+    error: function(response) {
+      console.log('Failure');
+    },
+  });
+}
+
+function retrieveLocation(location)
+{
+  var lamdaFunction = "locations";
+  var apiUrl = apiGateway + lamdaFunction + "/" + location;
+
+  $.ajax({
+      method: "GET",
+      url: apiUrl,
+      crossDomain: true,
+      dataType: 'json',
+      headers: {"x-api-key": apiKey},
+      success: function(response) {
+        $('#floorPlan').attr('src','data:image/png;base64,' + response.FloorPlanData);
+      },
+      error: function(response) {
+        console.log('Failure');
+      },
+  });
+}
+
+retrieveSoundAmplitude();
+retrieveLocation(officeLocation);
+
+</script>
+</head>
+<body>
+  <div>
+    <img id="floorPlan">
+  </div>
+</body>
+</html>
